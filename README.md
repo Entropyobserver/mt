@@ -1,258 +1,250 @@
-# LoRA Fine-Tuning for EN→NO Petroleum Translation
+# LoRA Fine-Tuning for English-Norwegian Petroleum Translation
 
-Parameter-efficient domain adaptation of `NLLB-200-distilled-600M` on
-English→Norwegian petroleum texts from the Norwegian Petroleum Directorate
-(NPD corpus, ELRC_559).
+This repository contains experiments for adapting
+`facebook/nllb-200-distilled-600M` to English-to-Norwegian petroleum-domain
+translation using LoRA, plus a controlled comparison against full
+fine-tuning.
 
----
+The project uses Norwegian Petroleum Directorate (NPD) parallel data and
+focuses on low-resource domain adaptation, data scaling, LoRA hyperparameter
+sensitivity, and LoRA-vs-full-fine-tuning trade-offs.
 
-## Project Structure
+## Repository Layout
 
-```
+```text
 mt_oil_no/
-├── config.yaml                   # shared training configuration
-├── environment.yml               # conda environment specification
-├── experiments/
-│   └── en_no_expert/             # all experiment scripts (run in order)
-│       ├── 01_data_scaling.py
-│       ├── 02_gridsearch.py
-│       ├── 03_optuna_stage1.py
-│       ├── 04_optuna_stage2.py
-│       ├── 05_final_eval.py
-│       ├── 06_lora_vs_ft.py
-│       ├── 06_lora.sh            # SBATCH script for LoRA job
-│       └── 06_ft.sh              # SBATCH script for full FT job
-├── scripts/
-│   ├── data/                     # data loading and dataset classes
-│   ├── model/                    # base, LoRA, and full FT trainers
-│   └── evaluation/               # BLEU, chrF, COMET evaluator
-├── analysis/                     # result visualization scripts
-├── test/                         # unit tests
-└── outputs/                      # experiment results (auto-generated)
+|-- config.yaml                         # shared model, data, and training config
+|-- Environment.yml                     # conda environment specification
+|-- data/
+|   |-- final_splits_npd/               # JSON/TSV train/val/test splits
+|   |-- final_splits_npd_bokmal/        # JSONL Bokmal-filtered splits
+|   |-- processed/                      # processing notebooks and reports
+|   `-- source/                         # source NPD TMX and converted data
+|-- experiments/en_no_expert/
+|   |-- a_data_scaling.py               # Exp A: data scaling
+|   |-- a_exp1.py                       # Slurm array wrapper for Exp A
+|   |-- b_gridsearch.py                 # Exp B: LoRA grid search
+|   |-- b_exp2.py                       # Slurm array wrapper for Exp B
+|   |-- c_optuna_stage1.py              # Exp C1: Optuna coarse search
+|   |-- c_optuna_stage2.py              # Exp C2: validate top configs
+|   |-- d_final_eval.py                 # Exp D: final LoRA evaluation
+|   |-- e_lora_vs_ft.py                 # Exp E: LoRA vs full fine-tuning
+|   `-- *.sh                            # UPPMAX/Pelle Slurm launch scripts
+|-- scripts/
+|   |-- data/                           # dataset and DataManager utilities
+|   |-- evaluation/                     # BLEU, chrF, optional COMET evaluation
+|   `-- model/                          # BaseTrainer, LoRATrainer, FullTrainer
+|-- analysis/                           # analysis utilities
+|-- test/                               # walkthrough notebooks
+`-- outputs/                            # generated locally; not tracked
 ```
-
----
-
-## Requirements
-
-- Python 3.10
-- CUDA-compatible GPU
-  - LoRA experiments (Exp 1–5): ≥ 8 GB VRAM
-  - Full fine-tuning (Exp 6): ≥ 16 GB VRAM
-
----
-
-## Environment Setup
-
-The environment is managed with conda.
-All dependencies are pinned in `environment.yml`.
-
-```bash
-conda env create -f environment.yml -p /your/path/conda_envs/mt26
-conda activate /your/path/conda_envs/mt26
-```
-
-> **Note on COMET:** `unbabel-comet` is listed in `environment.yml` but is
-> only used in Exp 5 (final evaluation). If you only intend to run Exp 1–4
-> or Exp 6, COMET will not be called and you can safely skip installing it
-> by removing that line from `environment.yml` before creating the environment.
-
----
 
 ## Data
 
-Download ELRC_559 from https://elrc-share.eu (search: `ELRC_559`).
+The processed data is included in this repository.
 
-The expected data format is JSON with `source` / `target` fields:
+Main configured splits:
 
-```json
-[{"source": "english sentence", "target": "norwegian sentence"}]
+```text
+data/final_splits_npd/train.json
+data/final_splits_npd/val.json
+data/final_splits_npd/test.json
 ```
 
-Place the processed splits at:
+Additional Bokmal-filtered JSONL splits are available at:
 
-```
-data/final_splits_npd/train.json   # 13,935 pairs
-data/final_splits_npd/val.json     #  1,737 pairs
-data/final_splits_npd/test.json    #  1,742 pairs
-```
-
-Split ratio: 80 / 10 / 10, fixed `seed=42`.
-
----
-
-## Running Experiments
-
-The experiments are designed to run in the order below.
-Each script saves its results to `outputs/` automatically.
-
-```
-exp1 (data scaling)
-  ├── exp2 (grid search)      ──→  exp5 uses exp2's best config
-  └── exp3 (optuna stage 1)
-          └── exp4 (optuna stage 2)
-exp6 (LoRA vs full FT)        ──  independent, can run any time
+```text
+data/final_splits_npd_bokmal/train.jsonl
+data/final_splits_npd_bokmal/val.jsonl
+data/final_splits_npd_bokmal/test.jsonl
 ```
 
-### Exp 1 — Data Scaling
+`TranslationDataset` supports both `.json` and `.jsonl` via
+`TranslationDataset.from_file()`.
 
-How much training data is needed before performance plateaus?
+The source corpus is derived from the NPD/ELRC petroleum translation data.
+Please check the original data provider terms before redistributing or using
+the data outside research/course contexts.
+
+## Setup
+
+The recommended environment is provided in `Environment.yml`.
 
 ```bash
-python experiments/en_no_expert/01_data_scaling.py
+conda env create -f Environment.yml
+conda activate mt26
 ```
 
-### Exp 2 — Grid Search over LoRA Hyperparameters
-
-Exhaustive search over r × alpha × dropout combinations.
-Uses the optimal data size identified in Exp 1 (8,000 samples).
+For a minimal manual setup:
 
 ```bash
-python experiments/en_no_expert/02_gridsearch.py
+conda create -n mt26 python=3.10
+conda activate mt26
+pip install torch transformers peft datasets evaluate pandas pyyaml optuna sacrebleu
 ```
 
-### Exp 3 — Optuna Stage 1 (Coarse Search)
-
-Bayesian hyperparameter search with 50 trials on a 2,000-sample subset.
-Fast — designed to narrow the search space before Stage 2.
+For COMET evaluation in the final experiment:
 
 ```bash
-python experiments/en_no_expert/03_optuna_stage1.py
+pip install unbabel-comet
 ```
-
-### Exp 4 — Optuna Stage 2 (Full Validation)
-
-Takes the top 5 configs from Stage 1 and validates each with multiple
-seeds on the full 8,000-sample training set.
-
-```bash
-python experiments/en_no_expert/04_optuna_stage2.py
-```
-
-### Exp 5 — Final Evaluation
-
-Trains the best config from Exp 2 (`r=8, alpha=64, dropout=0.0`) on the
-full training set across multiple seeds, and evaluates with BLEU, chrF,
-and COMET on the held-out test set.
-
-```bash
-python experiments/en_no_expert/05_final_eval.py
-```
-
-### Exp 6 — LoRA vs Full Fine-Tuning
-
-Compares LoRA and full fine-tuning across multiple data sizes under
-controlled conditions (same backbone, data, epochs, and test set).
-
-Can be run as two separate jobs on a SLURM cluster:
-
-```bash
-sbatch experiments/en_no_expert/06_lora.sh
-sbatch experiments/en_no_expert/06_ft.sh
-```
-
-Or sequentially on a single machine:
-
-```bash
-python experiments/en_no_expert/06_lora_vs_ft.py --method lora
-python experiments/en_no_expert/06_lora_vs_ft.py --method ft
-```
-
-All results are saved to `outputs/`.
-
----
-
-## Analysis
-
-```bash
-python analysis/01_data_scaling_analysis.py
-python analysis/02_parameter_grid_search_analysis.py
-python analysis/03_parameter_optuna_analysis.py
-```
-
----
 
 ## Configuration
 
-All shared hyperparameters live in `config.yaml`.
-Key settings used in the paper:
+Shared settings live in `config.yaml`.
 
-| Parameter        | Value                              |
-|------------------|------------------------------------|
-| Base model       | facebook/nllb-200-distilled-600M   |
-| LoRA rank (r)    | 8 (optimized in Exp 2)             |
-| LoRA alpha (α)   | 64 (optimized in Exp 2)            |
-| LoRA dropout     | 0.0 (optimized in Exp 2)           |
-| LoRA layers      | Q, K, V, O                         |
-| Learning rate    | 5e-4                               |
-| Batch size       | 4 × 4 (effective 16)               |
-| Training epochs  | 3                                  |
-| Precision        | FP16                               |
+Important defaults:
 
----
+```yaml
+model:
+  pretrained: facebook/nllb-200-distilled-600M
+  src_lang: eng_Latn
+  tgt_lang: nob_Latn
+  max_length: 128
+
+training:
+  epochs: 3
+  batch_size: 4
+  grad_accumulation: 4
+  lr: 5.0e-4
+
+generation:
+  max_length: 128
+  num_beams: 5
+```
+
+## Running Experiments
+
+Run from the repository root.
+
+### A. Data Scaling
+
+Single-process run:
+
+```bash
+python experiments/en_no_expert/a_data_scaling.py
+```
+
+UPPMAX Slurm array:
+
+```bash
+sbatch experiments/en_no_expert/a_exp1.sh
+```
+
+This tests multiple training sizes and seeds. Current config uses:
+
+```text
+train_sizes = [100, 500, 1000, 2000, 4000, 6000, 8000, 10000, full]
+seeds = [42, 123, 456]
+```
+
+### B. LoRA Grid Search
+
+Single-process run:
+
+```bash
+python experiments/en_no_expert/b_gridsearch.py
+```
+
+UPPMAX Slurm array:
+
+```bash
+sbatch experiments/en_no_expert/b_exp2.sh
+```
+
+The grid searches LoRA rank, alpha, and dropout using the training size
+specified in `config.yaml`.
+
+### C. Optuna Hyperparameter Search
+
+```bash
+python experiments/en_no_expert/c_optuna_stage1.py
+python experiments/en_no_expert/c_optuna_stage2.py
+```
+
+Or on UPPMAX:
+
+```bash
+sbatch experiments/en_no_expert/c_optuna_en_no.sh
+```
+
+Stage 1 performs a coarse search. Stage 2 validates top configurations and
+writes:
+
+```text
+outputs/exp3_optuna_stage2/best_config.json
+```
+
+### D. Final LoRA Evaluation
+
+```bash
+python experiments/en_no_expert/d_final_eval.py
+```
+
+Or:
+
+```bash
+sbatch experiments/en_no_expert/d_final_eval_en_no.sh
+```
+
+This loads the best Stage 2 LoRA configuration when available and evaluates
+the final model with BLEU, chrF, and optional COMET.
+
+### E. LoRA vs Full Fine-Tuning
+
+Run LoRA and full fine-tuning as separate jobs:
+
+```bash
+python experiments/en_no_expert/e_lora_vs_ft.py --method lora
+python experiments/en_no_expert/e_lora_vs_ft.py --method ft
+```
+
+Or on UPPMAX:
+
+```bash
+sbatch experiments/en_no_expert/e_lora.sh
+sbatch experiments/en_no_expert/e_ft.sh
+```
+
+The comparison controls the backbone, data subsets, seeds, epochs, batch
+settings, validation/test generation, and test set. It uses method-appropriate
+learning rates:
+
+```text
+LoRA:    5e-4, fp16
+Full FT: 5e-5, fp32
+```
+
+Full fine-tuning is run in fp32 for numerical stability; LoRA uses fp16 for
+efficiency.
 
 ## Reproducibility Notes
 
-Paper results were obtained on UPPMAX Pelle cluster (NVIDIA T4 GPUs).
-Minor numerical differences are expected on different hardware due to
-floating-point non-determinism.
+- The Slurm scripts are configured for the UPPMAX Pelle cluster and the
+  project path used during this course project.
+- Hugging Face caches are placed under the configured project storage path in
+  the Slurm scripts.
+- Generated outputs, logs, checkpoints, model weights, and caches are excluded
+  from Git.
+- Validation and test generation both force the NLLB target language token to
+  `nob_Latn`.
 
-Expected variance: ± 1.0 BLEU across different hardware and seeds.
-Core findings are robust to this variance:
+## Outputs
 
-- Elbow point at 8,000 training samples (96% of max BLEU)
-- Alpha (α) dominates LoRA hyperparameter importance (fANOVA = 0.97)
-- Optimal config: r=8, α=64, dropout=0.0
-- LoRA vs full FT gap: max Δ = 0.85 BLEU
+Experiment outputs are written under:
 
----
-
-## Key Results
-
-| Model                        | BLEU  | chrF++ | COMET  |
-|------------------------------|-------|--------|--------|
-| NLLB-600M (zero-shot)        | 36.86 | 61.29  | 0.8814 |
-| Microsoft Translator         | 57.88 | 75.45  | 0.9313 |
-| Our LoRA model               | 61.48 | 79.19  | 0.9298 |
-
----
-
-## Demo
-
-An interactive demo is available on Hugging Face Spaces:
-https://huggingface.co/spaces/entropy25/mt
-
-The demo allows you to test the fine-tuned model on custom English
-petroleum text inputs and see Norwegian translations in real time.
-
----
-
-## Citation
-
-```bibtex
-@inproceedings{yang-etal-2026-lora,
-  title     = {LoRA Fine-Tuning of English--Norwegian NMT for the Oil \& Gas Industry},
-  author    = {Yang, Xiaojing and Li, Zhihan and Sun, Gege and Li, Mengyue and Beloucif, Meriem},
-  booktitle = {Proceedings of EAMT 2026},
-  year      = {2026}
-}
+```text
+outputs/
 ```
 
----
+This directory is ignored by Git because it may contain large checkpoints and
+generated result files. Keep important summary tables separately if they need
+to be archived.
 
-## License and Credits
+## License
 
-Copyright 2026 Xiaojing Yang. Licensed under the Apache License 2.0.
+Code in this repository is licensed under the Apache License 2.0. See
+`LICENSE`.
 
-This project builds on the following open-source libraries and resources:
-
-- HuggingFace Transformers (Apache 2.0)
-- HuggingFace PEFT (Apache 2.0)
-- Optuna (MIT)
-- `facebook/nllb-200-distilled-600M` (CC-BY-NC 4.0) — not redistributed
-- ELRC_559 NPD corpus — Norwegian Petroleum Directorate, used for research
-  only; not redistributed
-
-AI-assisted tools were used for code formatting and phrasing only.
-All experimental design, implementation decisions, and analysis are the
-author's own.
+The NLLB model is not redistributed here. See the model card for
+`facebook/nllb-200-distilled-600M` for its license and use restrictions.

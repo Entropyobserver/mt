@@ -27,7 +27,7 @@ class FullTrainer(BaseTrainer):
             param.requires_grad = True
 
         trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
-        total     = sum(p.numel() for p in model.parameters())
+        total = sum(p.numel() for p in model.parameters())
         print(f"Trainable params: {trainable:,} / {total:,} ({100*trainable/total:.1f}%)")
 
         return model
@@ -35,7 +35,7 @@ class FullTrainer(BaseTrainer):
     def train(self, train_data: List[Dict], val_data: List[Dict], config: Dict) -> Dict:
 
         # force fp32 regardless of what config says
-        config         = dict(config)
+        config = dict(config)
         config["fp16"] = False
 
         result = super().train(train_data, val_data, config)

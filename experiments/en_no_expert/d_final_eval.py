@@ -1,4 +1,3 @@
-import os
 import sys
 import json
 import logging
@@ -14,46 +13,37 @@ script_dir   = Path(__file__).resolve().parent
 project_root = script_dir.parent.parent
 sys.path.insert(0, str(project_root))
 
-HF_CACHE_DIR = "/proj/uppmax2026-1-123/private/yaxj1/hf_cache"
-os.environ.update({
-    "HF_HOME": HF_CACHE_DIR,
-    "TRANSFORMERS_CACHE": HF_CACHE_DIR,
-    "HF_DATASETS_CACHE":HF_CACHE_DIR,
-    "TORCH_HOME": HF_CACHE_DIR,
-})
-
 from scripts.model.lora_trainer import LoRATrainer
 from scripts.data.data_loader import DataManager
 from scripts.evaluation.base_evaluator import BaseEvaluator
 
 
-def get_logger(output_dir: Path) -> logging.Logger:
-    logger = logging.getLogger("exp5_final")
+def get_logger(output_dir: Path, log_file: str = "experiment.log") -> logging.Logger:
+    logger = logging.getLogger(f"exp5_{log_file}")
+    if logger.handlers:
+        return logger
     logger.setLevel(logging.INFO)
     fmt = logging.Formatter("%(asctime)s  %(message)s", datefmt="%H:%M:%S")
     ch = logging.StreamHandler()
     ch.setFormatter(fmt)
-    fh = logging.FileHandler(output_dir / "experiment.log", encoding="utf-8")
+    fh = logging.FileHandler(output_dir / log_file, encoding="utf-8")
     fh.setFormatter(fmt)
     logger.addHandler(ch)
     logger.addHandler(fh)
     return logger
 
 
-def load_best_config(cfg, logger) -> tuple:
-    # Manually set best config from exp2 gridsearch results
-    # r=8, alpha=64, dropout=0.0 gave best test BLEU in exp2
-    r, alpha, dropout = 8, 64, 0.0
-    logger.info(f"Using config from exp2: r={r}, alpha={alpha}, dropout={dropout}")
+def load_best_config(cfg, r, alpha, dropout, logger):
+    # Try to load the best Stage 2 configuration first.
+    best_path = project_root / cfg["paths"]["output_dir"] / "exp3_optuna_stage2" / "best_config.json"
+    if best_path.exists():
+        with open(best_path) as f:
+            best = json.load(f)
+        r, alpha, dropout = best["r"], best["alpha"], best["dropout"]
+        logger.info(f"Loaded best config from exp3 stage2: r={r}, alpha={alpha}, dropout={dropout}")
+    else:
+        logger.info(f"Using config from args: r={r}, alpha={alpha}, dropout={dropout}")
     return r, alpha, dropout
-
-
-def load_data(cfg, logger):
-    # Load full dataset (no subset — final eval uses all training data)
-    data_manager = DataManager(cfg)
-    train_ds, val_ds, test_ds = data_manager.load_splits()
-    logger.info(f"Train: {len(train_ds)} | Val: {len(val_ds)} | Test: {len(test_ds)}")
-    return train_ds, val_ds, test_ds
 
 
 def build_train_config(cfg, r, alpha, dropout, seed, seed_dir) -> dict:
@@ -72,6 +62,9 @@ def build_train_config(cfg, r, alpha, dropout, seed, seed_dir) -> dict:
         "eval_steps": cfg["training"]["eval_steps"],
         "early_stopping_patience": cfg["training"]["early_stopping_patience"],
         "fp16": cfg["training"]["fp16"],
+        "max_length": cfg["model"].get("max_length", 128),
+        "generation_max_length": cfg["generation"].get("max_length", cfg["model"].get("max_length", 128)),
+        "generation_num_beams": cfg["generation"]["num_beams"],
         "save_total_limit": 2,
         "save_final_model": True,
     }
@@ -82,7 +75,7 @@ def run_one_seed(seed, r, alpha, dropout, cfg, train_data, val_data, test_ds,
     seed_dir = output_dir / f"seed_{seed}"
     seed_dir.mkdir(parents=True, exist_ok=True)
 
-    trainer      = LoRATrainer(
+    trainer = LoRATrainer(
         model_name=cfg["model"]["pretrained"],
         src_lang=cfg["model"]["src_lang"],
         tgt_lang=cfg["model"]["tgt_lang"],
@@ -91,18 +84,17 @@ def run_one_seed(seed, r, alpha, dropout, cfg, train_data, val_data, test_ds,
 
     try:
         train_result = trainer.train(train_data, val_data, train_config)
-        logger.info(f"  val  BLEU={train_result['bleu']:.4f}  chrF={train_result['chrf']:.2f}")
+        logger.info(f"val BLEU={train_result['bleu']:.4f}  chrF={train_result['chrf']:.2f}")
 
-        # Generate predictions on the HELD-OUT TEST SET
-        # sources and references come from test_ds, never seen during training
-        test_preds   = trainer.generate_predictions(
+        test_preds = trainer.generate_predictions(
             train_result["model"], test_ds,
-            batch_size=8, num_beams=cfg["generation"]["num_beams"],
+            batch_size=8,
+            max_length=cfg["generation"].get("max_length", cfg["model"].get("max_length", 128)),
+            num_beams=cfg["generation"]["num_beams"],
         )
 
-        # Evaluate with BLEU, chrF, and COMET
         test_metrics = evaluator.evaluate_all(sources, test_preds, references)
-        logger.info(f"  test BLEU={test_metrics['bleu']:.4f}  chrF={test_metrics['chrf']:.2f}  COMET={test_metrics.get('comet', 0):.4f}")
+        logger.info(f"test BLEU={test_metrics['bleu']:.4f}  chrF={test_metrics['chrf']:.2f}  COMET={test_metrics.get('comet', 0):.4f}")
 
         entry = {
             "seed": seed,
@@ -119,7 +111,6 @@ def run_one_seed(seed, r, alpha, dropout, cfg, train_data, val_data, test_ds,
         with open(seed_dir / "results.json", "w") as f:
             json.dump(entry, f, indent=2)
 
-        # Save predictions for manual inspection and error analysis
         with open(seed_dir / "test_predictions.json", "w", encoding="utf-8") as f:
             json.dump([
                 {"source": src, "prediction": pred, "reference": ref}
@@ -129,7 +120,7 @@ def run_one_seed(seed, r, alpha, dropout, cfg, train_data, val_data, test_ds,
         return entry
 
     except Exception as e:
-        logger.error(f"  Seed {seed} failed: {e}\n{traceback.format_exc()}")
+        logger.error(f"Seed {seed} failed: {e}\n{traceback.format_exc()}")
         return {
             "seed": seed, "val_bleu": 0.0, "val_chrf": 0.0,
             "test_bleu": 0.0, "test_chrf": 0.0, "test_comet": None, "failed": True,
@@ -141,17 +132,6 @@ def run_one_seed(seed, r, alpha, dropout, cfg, train_data, val_data, test_ds,
         gc.collect()
 
 
-def run_all_seeds(seeds, r, alpha, dropout, cfg, train_data, val_data, test_ds,
-                  sources, references, evaluator, output_dir, logger):
-    results = []
-    for seed in seeds:
-        logger.info(f"\n[Seed {seed}]")
-        entry = run_one_seed(seed, r, alpha, dropout, cfg, train_data, val_data,
-                             test_ds, sources, references, evaluator, output_dir, logger)
-        results.append(entry)
-    return results
-
-
 def save_report(results, output_dir, logger):
     df = pd.DataFrame(results)
     df.to_csv(output_dir / "all_results.csv", index=False)
@@ -160,40 +140,57 @@ def save_report(results, output_dir, logger):
 
     valid_df = df[df["failed"] != True] if "failed" in df.columns else df
     if not valid_df.empty:
-        logger.info(f" Test BLEU:  {valid_df['test_bleu'].mean():.4f} ± {valid_df['test_bleu'].std():.4f}")
-        logger.info(f" Test chrF:  {valid_df['test_chrf'].mean():.2f} ± {valid_df['test_chrf'].std():.2f}")
+        logger.info(f"Test BLEU:  {valid_df['test_bleu'].mean():.4f} ± {valid_df['test_bleu'].std():.4f}")
+        logger.info(f"Test chrF:  {valid_df['test_chrf'].mean():.2f} ± {valid_df['test_chrf'].std():.2f}")
         if "test_comet" in valid_df.columns and valid_df["test_comet"].notna().any():
-            logger.info(f" Test COMET: {valid_df['test_comet'].mean():.4f} ± {valid_df['test_comet'].std():.4f}")
+            logger.info(f"Test COMET: {valid_df['test_comet'].mean():.4f} ± {valid_df['test_comet'].std():.4f}")
 
     logger.info(f"Results saved to {output_dir}")
 
 
 def main():
-    # 1. load config
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--r", type=int, default=8)
+    parser.add_argument("--alpha", type=int, default=64)
+    parser.add_argument("--dropout", type=float, default=0.0)
+    args = parser.parse_args()
+
     with open(project_root / "config.yaml", encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
+
     output_dir = project_root / cfg["paths"]["output_dir"] / "exp5_final_eval"
     output_dir.mkdir(parents=True, exist_ok=True)
+
     logger = get_logger(output_dir)
     logger.info("EXPERIMENT 5: FINAL EVALUATION")
-    # 2. load best config from exp2 grid search
-    r, alpha, dropout = load_best_config(cfg, logger)
+
+    r, alpha, dropout = load_best_config(cfg, args.r, args.alpha, args.dropout, logger)
     logger.info(f"LoRA: r={r}, alpha={alpha}, dropout={dropout}")
-    # 3. load data
-    train_ds, val_ds, test_ds = load_data(cfg, logger)
-    evaluator = BaseEvaluator(use_comet=True)# use_comet=True for final evaluation — COMET cached at HF_CACHE_DIR
+
+    data_manager = DataManager(cfg)
+    train_ds, val_ds, test_ds = data_manager.load_splits()
+    logger.info(f"Train: {len(train_ds)} | Val: {len(val_ds)} | Test: {len(test_ds)}")
+
+    evaluator  = BaseEvaluator(use_comet=True)
     train_data = [s.to_dict() for s in train_ds.samples]
-    val_data = [s.to_dict() for s in val_ds.samples]
-    sources = [s.source for s in test_ds.samples]
+    val_data   = [s.to_dict() for s in val_ds.samples]
+    sources    = [s.source for s in test_ds.samples]
     references = [s.target for s in test_ds.samples]
+
     seeds = cfg.get("experiment", {}).get("seeds", [42, 123, 456])
     logger.info(f"Seeds: {seeds}")
-    # 4. run training and evaluation for each seed
-    results = run_all_seeds(
-        seeds, r, alpha, dropout, cfg, train_data, val_data,
-        test_ds, sources, references, evaluator, output_dir, logger,
-    )
-    # 5. save results
+
+    results = []
+    for seed in seeds:
+        logger.info(f"\n[Seed {seed}]")
+        entry = run_one_seed(
+            seed, r, alpha, dropout, cfg,
+            train_data, val_data, test_ds,
+            sources, references, evaluator, output_dir, logger,
+        )
+        results.append(entry)
+
     logger.info("SUMMARY")
     save_report(results, output_dir, logger)
 

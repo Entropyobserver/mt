@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments
+.env
+.venv/
+venv/
+env/
+*.conda
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Experiment outputs and logs
+outputs/
+logs/
+*.log
+*.out
+*.err
+
+# Model/checkpoint artifacts
+checkpoint-*/
+final_model/
+trained_models/
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+
+# Hugging Face / cache directories
+hf_cache/
+.cache/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

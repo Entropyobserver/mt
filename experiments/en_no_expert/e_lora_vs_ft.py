@@ -21,9 +21,9 @@ LoRA configuration note:
   This is intentional: we compare methods under equal conditions,
   without giving LoRA the benefit of hyperparameter tuning.
 Usage:
-    python 06_lora_vs_ft.py --method lora
-    python 06_lora_vs_ft.py --method ft
-    python 06_lora_vs_ft.py --method all   (runs both sequentially)
+    python e_lora_vs_ft.py --method lora
+    python e_lora_vs_ft.py --method ft
+    python e_lora_vs_ft.py --method all   (runs both sequentially)
 """
 import os
 import sys
@@ -43,7 +43,7 @@ script_dir   = Path(__file__).resolve().parent
 project_root = script_dir.parent.parent
 sys.path.insert(0, str(project_root))
 
-HF_CACHE_DIR = "/proj/uppmax2026-1-123/private/yaxj1/hf_cache"
+HF_CACHE_DIR = "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/hf_cache"
 os.environ.update({
     "HF_HOME": HF_CACHE_DIR,
     "HF_DATASETS_CACHE": HF_CACHE_DIR,
@@ -58,12 +58,15 @@ from scripts.evaluation.base_evaluator import BaseEvaluator
 # learning rates differ by design — standard practice for each method
 LR = {
     "lora": 5e-4,
-    "ft": 2e-5,
+    "ft": 5e-5,
 }
 
 
 def get_logger(output_dir: Path) -> logging.Logger:
     logger = logging.getLogger("exp6_method_comparison")
+    if logger.handlers:
+        return logger
+
     logger.setLevel(logging.INFO)
     fmt = logging.Formatter("%(asctime)s  %(message)s", datefmt="%H:%M:%S")
     ch = logging.StreamHandler()
@@ -95,6 +98,9 @@ def build_train_config(cfg, method, seed, run_dir) -> dict:
         "eval_steps": cfg["training"]["eval_steps"],
         "early_stopping_patience": cfg["training"]["early_stopping_patience"],
         "fp16":   method == "lora",  # ft uses fp32 for stability
+        "max_length": cfg["model"].get("max_length", 128),
+        "generation_max_length": cfg["generation"].get("max_length", cfg["model"].get("max_length", 128)),
+        "generation_num_beams": cfg["generation"]["num_beams"],
         "save_total_limit": 1,
         "save_final_model": method == "lora",  # ft model deleted after eval
     }
@@ -134,6 +140,7 @@ def run_one(method, size, seed, cfg, train_ds, val_ds, test_ds, evaluator, outpu
         test_preds = trainer.generate_predictions(
             train_result["model"], test_ds,
             batch_size=8,
+            max_length=cfg["generation"].get("max_length", cfg["model"].get("max_length", 128)),
             num_beams=cfg["generation"]["num_beams"],
         )
         test_metrics = evaluator.evaluate_all(
@@ -152,6 +159,8 @@ def run_one(method, size, seed, cfg, train_ds, val_ds, test_ds, evaluator, outpu
             "test_bleu": test_metrics["bleu"],
             "test_chrf":  test_metrics["chrf"],
             "training_time_seconds": train_time,
+            "learning_rate": train_config["learning_rate"],
+            "fp16": train_config["fp16"],
         }
 
         with open(run_dir / "metrics.json", "w") as f:
