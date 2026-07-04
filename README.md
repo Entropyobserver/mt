@@ -241,6 +241,19 @@ This directory is ignored by Git because it may contain large checkpoints and
 generated result files. Keep important summary tables separately if they need
 to be archived.
 
+## Citation
+
+If you use this repository or build on the experiments, please cite:
+
+```bibtex
+@inproceedings{yang-etal-2026-lora,
+  title     = {LoRA Fine-Tuning of English--Norwegian NMT for the Oil \& Gas Industry},
+  author    = {Yang, Xiaojing and Li, Zhihan and Sun, Gege and Li, Mengyue and Beloucif, Meriem},
+  booktitle = {Proceedings of EAMT 2026},
+  year      = {2026}
+}
+```
+
 ## License
 
 Code in this repository is licensed under the Apache License 2.0. See
@@ -248,3 +261,8 @@ Code in this repository is licensed under the Apache License 2.0. See
 
 The NLLB model is not redistributed here. See the model card for
 `facebook/nllb-200-distilled-600M` for its license and use restrictions.
+
+This project builds on Hugging Face Transformers, PEFT, Evaluate, Optuna, and
+the NPD/ELRC petroleum translation data. AI-assisted tools were used for code
+formatting and phrasing; experimental design, implementation decisions, and
+analysis are the authors' own.
