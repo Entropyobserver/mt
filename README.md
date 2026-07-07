@@ -72,14 +72,14 @@ The recommended environment is provided in `Environment.yml`.
 
 ```bash
 conda env create -f Environment.yml
-conda activate mt26
+conda activate mt_old_clone
 ```
 
 For a minimal manual setup:
 
 ```bash
-conda create -n mt26 python=3.10
-conda activate mt26
+conda create -n mt_old_clone python=3.10
+conda activate mt_old_clone
 pip install torch transformers peft datasets evaluate pandas pyyaml optuna sacrebleu
 ```
 

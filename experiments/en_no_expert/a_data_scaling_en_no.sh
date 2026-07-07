@@ -9,7 +9,7 @@
 #SBATCH -e logs/data_scaling_en_no_%j.err
 
 source ~/miniconda3/etc/profile.d/conda.sh
-conda activate /gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/conda_envs/mt26
+conda activate /gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/conda_envs/mt_old_clone
 
 PROJECT_ROOT=/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no
 export HF_CACHE_DIR=/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/hf_cache
