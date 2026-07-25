@@ -1,0 +1,6 @@
+{
+  "size": 13935,
+  "seed": 123,
+  "test_bleu": 0.6197726933742245,
+  "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_13935/seed_123/training/final_model"
+}

@@ -1,8 +1,7 @@
 {
-  "r": 8,
+  "r": 16,
   "alpha": 64,
   "dropout": 0.0,
-  "val_bleu": 0.57162959831834,
-  "val_chrf": 75.45982542865488,
-  "val_loss": 0.7395509481430054
+  "val_bleu": 0.6181173352089532,
+  "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r16_a64_d0.0\\training\\final_model"
 }

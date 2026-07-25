@@ -1,218 +1,272 @@
 [
   {
-    "seed": 42,
-    "sample_size": 100,
-    "actual_size": 100,
-    "val_bleu": 0.08739209821471726,
-    "val_chrf": 25.429197133653165,
-    "val_loss": 4.903400897979736
-  },
-  {
-    "seed": 42,
-    "sample_size": 500,
-    "actual_size": 500,
-    "val_bleu": 0.4355879398725828,
-    "val_chrf": 66.43071795588588,
-    "val_loss": 1.2055720090866089
-  },
-  {
-    "seed": 42,
-    "sample_size": 1000,
-    "actual_size": 1000,
-    "val_bleu": 0.49742386008171496,
-    "val_chrf": 70.64994836079977,
-    "val_loss": 1.0015023946762085
-  },
-  {
-    "seed": 42,
-    "sample_size": 2000,
-    "actual_size": 2000,
-    "val_bleu": 0.5304502914018856,
-    "val_chrf": 73.17551686441595,
-    "val_loss": 0.8584380745887756
-  },
-  {
-    "seed": 42,
-    "sample_size": 4000,
-    "actual_size": 4000,
-    "val_bleu": 0.5486814466105688,
-    "val_chrf": 74.27805138924421,
-    "val_loss": 0.8133211135864258
-  },
-  {
-    "seed": 42,
-    "sample_size": 6000,
-    "actual_size": 6000,
-    "val_bleu": 0.5714209588399269,
-    "val_chrf": 75.59304992657137,
-    "val_loss": 0.739061176776886
-  },
-  {
-    "seed": 42,
-    "sample_size": 8000,
-    "actual_size": 8000,
-    "val_bleu": 0.5952444124846902,
-    "val_chrf": 77.04773863487611,
-    "val_loss": 0.6987929940223694
-  },
-  {
-    "seed": 42,
-    "sample_size": 10000,
-    "actual_size": 10000,
-    "val_bleu": 0.604540350818748,
-    "val_chrf": 77.48360543262677,
-    "val_loss": 0.6755643486976624
-  },
-  {
-    "seed": 42,
-    "sample_size": 13935,
-    "actual_size": 13935,
-    "val_bleu": 0.6162450251228764,
-    "val_chrf": 78.25498155894512,
-    "val_loss": 0.6389632821083069
-  },
-  {
+    "data_size": 100,
     "seed": 123,
-    "sample_size": 100,
-    "actual_size": 100,
-    "val_bleu": 0.08750103300837105,
-    "val_chrf": 25.360720241908574,
-    "val_loss": 4.905562400817871
+    "val_bleu": 0.37942047924678446,
+    "val_chrf": 61.79740009363924,
+    "val_loss": 1.6866151094436646,
+    "test_bleu": 0.3720262153638651,
+    "test_chrf": 62.11409631801067,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_100/seed_123/training/final_model"
   },
   {
+    "data_size": 100,
+    "seed": 42,
+    "val_bleu": 0.38000105452112803,
+    "val_chrf": 61.86859589452048,
+    "val_loss": 1.6846165657043457,
+    "test_bleu": 0.37357390424088377,
+    "test_chrf": 62.233115951323995,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_100/seed_42/training/final_model"
+  },
+  {
+    "data_size": 100,
+    "seed": 456,
+    "val_bleu": 0.3797409898429672,
+    "val_chrf": 61.80303251625465,
+    "val_loss": 1.6869009733200073,
+    "test_bleu": 0.37284992570334263,
+    "test_chrf": 62.172950238164326,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_100/seed_456/training/final_model"
+  },
+  {
+    "data_size": 1000,
     "seed": 123,
-    "sample_size": 500,
-    "actual_size": 500,
-    "val_bleu": 0.4267820034155696,
-    "val_chrf": 65.99827842418541,
-    "val_loss": 1.2074668407440186
+    "val_bleu": 0.5332884916868184,
+    "val_chrf": 73.4099649393782,
+    "val_loss": 0.8896093368530273,
+    "test_bleu": 0.5230864011110734,
+    "test_chrf": 73.29684196505772,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_1000/seed_123/training/final_model"
   },
   {
+    "data_size": 1000,
+    "seed": 42,
+    "val_bleu": 0.5283459766542793,
+    "val_chrf": 73.30454240251169,
+    "val_loss": 0.8950850367546082,
+    "test_bleu": 0.5195857079970015,
+    "test_chrf": 73.17880934353602,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_1000/seed_42/training/final_model"
+  },
+  {
+    "data_size": 1000,
+    "seed": 456,
+    "val_bleu": 0.5331981503503027,
+    "val_chrf": 73.27236667487804,
+    "val_loss": 0.8976831436157227,
+    "test_bleu": 0.5181316581325742,
+    "test_chrf": 72.86734117197473,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_1000/seed_456/training/final_model"
+  },
+  {
+    "data_size": 10000,
     "seed": 123,
-    "sample_size": 1000,
-    "actual_size": 1000,
-    "val_bleu": 0.48932232861144787,
-    "val_chrf": 70.09867654552343,
-    "val_loss": 1.0128742456436157
+    "val_bleu": 0.6174222574804612,
+    "val_chrf": 78.47094072543486,
+    "val_loss": 0.6477444171905518,
+    "test_bleu": 0.6093094410138752,
+    "test_chrf": 78.53192953051628,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_10000/seed_123/training/final_model"
   },
   {
+    "data_size": 10000,
+    "seed": 42,
+    "val_bleu": 0.6135330369593283,
+    "val_chrf": 78.28780156963829,
+    "val_loss": 0.6484986543655396,
+    "test_bleu": 0.607050823945923,
+    "test_chrf": 78.54270642621974,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_10000/seed_42/training/final_model"
+  },
+  {
+    "data_size": 10000,
+    "seed": 456,
+    "val_bleu": 0.6157756644645987,
+    "val_chrf": 78.38711940511853,
+    "val_loss": 0.6497719287872314,
+    "test_bleu": 0.6090220464940127,
+    "test_chrf": 78.67330924327284,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_10000/seed_456/training/final_model"
+  },
+  {
+    "data_size": 13935,
     "seed": 123,
-    "sample_size": 2000,
-    "actual_size": 2000,
-    "val_bleu": 0.5334972930195846,
-    "val_chrf": 73.4085386129802,
-    "val_loss": 0.8589656949043274
+    "val_bleu": 0.6262886145201834,
+    "val_chrf": 79.05080000095528,
+    "val_loss": 0.6209472417831421,
+    "test_bleu": 0.6197726933742245,
+    "test_chrf": 79.30846298685411,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_13935/seed_123/training/final_model"
   },
   {
+    "data_size": 13935,
+    "seed": 42,
+    "val_bleu": 0.6256860809397246,
+    "val_chrf": 79.0081739612113,
+    "val_loss": 0.6212741732597351,
+    "test_bleu": 0.6159736911080002,
+    "test_chrf": 79.1101764551083,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_13935/seed_42/training/final_model"
+  },
+  {
+    "data_size": 13935,
+    "seed": 456,
+    "val_bleu": 0.6249232087718505,
+    "val_chrf": 78.9474107338507,
+    "val_loss": 0.6188623905181885,
+    "test_bleu": 0.6194642456664893,
+    "test_chrf": 79.33234164232177,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_13935/seed_456/training/final_model"
+  },
+  {
+    "data_size": 2000,
     "seed": 123,
-    "sample_size": 4000,
-    "actual_size": 4000,
-    "val_bleu": 0.5395545291710625,
-    "val_chrf": 73.79240517727882,
-    "val_loss": 0.8161873817443848
+    "val_bleu": 0.5332131597144844,
+    "val_chrf": 73.75617936783536,
+    "val_loss": 0.8597062826156616,
+    "test_bleu": 0.5237213386119727,
+    "test_chrf": 73.68123374657517,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_2000/seed_123/training/final_model"
   },
   {
+    "data_size": 2000,
+    "seed": 42,
+    "val_bleu": 0.5407509075621084,
+    "val_chrf": 73.81753527767997,
+    "val_loss": 0.8637454509735107,
+    "test_bleu": 0.5295235628788583,
+    "test_chrf": 73.74298373690861,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_2000/seed_42/training/final_model"
+  },
+  {
+    "data_size": 2000,
+    "seed": 456,
+    "val_bleu": 0.5448161018333076,
+    "val_chrf": 74.11854255642282,
+    "val_loss": 0.8658656477928162,
+    "test_bleu": 0.5296270080304997,
+    "test_chrf": 73.8925839281079,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_2000/seed_456/training/final_model"
+  },
+  {
+    "data_size": 4000,
     "seed": 123,
-    "sample_size": 6000,
-    "actual_size": 6000,
-    "val_bleu": 0.5702315653088157,
-    "val_chrf": 75.80232659714797,
-    "val_loss": 0.7405358552932739
+    "val_bleu": 0.5866879143157562,
+    "val_chrf": 76.5935838465524,
+    "val_loss": 0.7397162318229675,
+    "test_bleu": 0.572309691680673,
+    "test_chrf": 76.34716958487438,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_4000/seed_123/training/final_model"
   },
   {
+    "data_size": 4000,
+    "seed": 42,
+    "val_bleu": 0.582280923695876,
+    "val_chrf": 76.35375222541464,
+    "val_loss": 0.7492569088935852,
+    "test_bleu": 0.5709283200001138,
+    "test_chrf": 76.24600499217466,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_4000/seed_42/training/final_model"
+  },
+  {
+    "data_size": 4000,
+    "seed": 456,
+    "val_bleu": 0.5754790092875802,
+    "val_chrf": 75.99207925985195,
+    "val_loss": 0.7514714598655701,
+    "test_bleu": 0.5671022026370881,
+    "test_chrf": 75.891499048959,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_4000/seed_456/training/final_model"
+  },
+  {
+    "data_size": 500,
     "seed": 123,
-    "sample_size": 8000,
-    "actual_size": 8000,
-    "val_bleu": 0.590771100898256,
-    "val_chrf": 76.84694120395963,
-    "val_loss": 0.7036865949630737
+    "val_bleu": 0.4961577707073974,
+    "val_chrf": 70.61927787546585,
+    "val_loss": 1.018396019935608,
+    "test_bleu": 0.48508631619504,
+    "test_chrf": 70.51887384611852,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_500/seed_123/training/final_model"
   },
   {
+    "data_size": 500,
+    "seed": 42,
+    "val_bleu": 0.4940609523207999,
+    "val_chrf": 70.24536232373684,
+    "val_loss": 1.019585371017456,
+    "test_bleu": 0.4816616802165438,
+    "test_chrf": 70.08703288135911,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_500/seed_42/training/final_model"
+  },
+  {
+    "data_size": 500,
+    "seed": 456,
+    "val_bleu": 0.49706542915958307,
+    "val_chrf": 70.36253617521261,
+    "val_loss": 1.0211658477783203,
+    "test_bleu": 0.4845615392831707,
+    "test_chrf": 70.26611214714228,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_500/seed_456/training/final_model"
+  },
+  {
+    "data_size": 6000,
     "seed": 123,
-    "sample_size": 10000,
-    "actual_size": 10000,
-    "val_bleu": 0.5974431029134474,
-    "val_chrf": 77.44105302685614,
-    "val_loss": 0.6752097606658936
+    "val_bleu": 0.5957747881377871,
+    "val_chrf": 77.29374866564213,
+    "val_loss": 0.7094830274581909,
+    "test_bleu": 0.5815701221192646,
+    "test_chrf": 77.03894119891224,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_6000/seed_123/training/final_model"
   },
   {
+    "data_size": 6000,
+    "seed": 42,
+    "val_bleu": 0.5956620369030243,
+    "val_chrf": 77.08492084547458,
+    "val_loss": 0.7011321783065796,
+    "test_bleu": 0.5859545542497526,
+    "test_chrf": 76.99984739469895,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_6000/seed_42/training/final_model"
+  },
+  {
+    "data_size": 6000,
+    "seed": 456,
+    "val_bleu": 0.5960900828563575,
+    "val_chrf": 77.16320225215645,
+    "val_loss": 0.6999050378799438,
+    "test_bleu": 0.5874773951163673,
+    "test_chrf": 77.17807118424194,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_6000/seed_456/training/final_model"
+  },
+  {
+    "data_size": 8000,
     "seed": 123,
-    "sample_size": 13935,
-    "actual_size": 13935,
-    "val_bleu": 0.6162450251228764,
-    "val_chrf": 78.25498155894512,
-    "val_loss": 0.6389632821083069
+    "val_bleu": 0.6106930343289007,
+    "val_chrf": 77.97886330784411,
+    "val_loss": 0.6696460247039795,
+    "test_bleu": 0.5999191945288944,
+    "test_chrf": 78.05871209752776,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_8000/seed_123/training/final_model"
   },
   {
-    "seed": 456,
-    "sample_size": 100,
-    "actual_size": 100,
-    "val_bleu": 0.08731458838551581,
-    "val_chrf": 25.366705818737913,
-    "val_loss": 4.900619029998779
+    "data_size": 8000,
+    "seed": 42,
+    "val_bleu": 0.6069889290044171,
+    "val_chrf": 77.9283353881547,
+    "val_loss": 0.6693853139877319,
+    "test_bleu": 0.5986173883339172,
+    "test_chrf": 77.88235825098074,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_8000/seed_42/training/final_model"
   },
   {
+    "data_size": 8000,
     "seed": 456,
-    "sample_size": 500,
-    "actual_size": 500,
-    "val_bleu": 0.43858914377526004,
-    "val_chrf": 66.84057436839893,
-    "val_loss": 1.2146644592285156
-  },
-  {
-    "seed": 456,
-    "sample_size": 1000,
-    "actual_size": 1000,
-    "val_bleu": 0.501128484494874,
-    "val_chrf": 70.95883074440708,
-    "val_loss": 0.9953904151916504
-  },
-  {
-    "seed": 456,
-    "sample_size": 2000,
-    "actual_size": 2000,
-    "val_bleu": 0.5322535624517133,
-    "val_chrf": 73.24869638382647,
-    "val_loss": 0.8656775951385498
-  },
-  {
-    "seed": 456,
-    "sample_size": 4000,
-    "actual_size": 4000,
-    "val_bleu": 0.5438225222894012,
-    "val_chrf": 74.11492289978618,
-    "val_loss": 0.8119837641716003
-  },
-  {
-    "seed": 456,
-    "sample_size": 6000,
-    "actual_size": 6000,
-    "val_bleu": 0.5737093873824173,
-    "val_chrf": 75.74732512953673,
-    "val_loss": 0.7437354326248169
-  },
-  {
-    "seed": 456,
-    "sample_size": 8000,
-    "actual_size": 8000,
-    "val_bleu": 0.5878834363604164,
-    "val_chrf": 76.79438059244268,
-    "val_loss": 0.704490602016449
-  },
-  {
-    "seed": 456,
-    "sample_size": 10000,
-    "actual_size": 10000,
-    "val_bleu": 0.6013330365419942,
-    "val_chrf": 77.38613476201681,
-    "val_loss": 0.6742562651634216
-  },
-  {
-    "seed": 456,
-    "sample_size": 13935,
-    "actual_size": 13935,
-    "val_bleu": 0.6162450251228764,
-    "val_chrf": 78.25498155894512,
-    "val_loss": 0.6389632821083069
+    "val_bleu": 0.6093468777503521,
+    "val_chrf": 78.01152867662029,
+    "val_loss": 0.6679583191871643,
+    "test_bleu": 0.5996450088403789,
+    "test_chrf": 77.83590967993173,
+    "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp1_data_scaling/size_8000/seed_456/training/final_model"
   }
 ]

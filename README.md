@@ -9,6 +9,9 @@ The project uses Norwegian Petroleum Directorate (NPD) parallel data and
 focuses on low-resource domain adaptation, data scaling, LoRA hyperparameter
 sensitivity, and LoRA-vs-full-fine-tuning trade-offs.
 
+Rerun notes and compact result summaries are documented in
+[`docs/experiment_rerun_notes.md`](docs/experiment_rerun_notes.md).
+
 ## Repository Layout
 
 ```text
@@ -131,6 +134,13 @@ UPPMAX Slurm array:
 sbatch experiments/en_no_expert/a_exp1.sh
 ```
 
+After the Slurm array has completed, collect the per-job metrics into summary
+files:
+
+```bash
+python experiments/en_no_expert/a_exp1.py --summarize
+```
+
 This tests multiple training sizes and seeds. Current config uses:
 
 ```text
@@ -150,6 +160,12 @@ UPPMAX Slurm array:
 
 ```bash
 sbatch experiments/en_no_expert/b_exp2.sh
+```
+
+After the Slurm array has completed, collect the per-configuration metrics:
+
+```bash
+python experiments/en_no_expert/b_exp2.py --summarize
 ```
 
 The grid searches LoRA rank, alpha, and dropout using the training size

@@ -1,218 +1,272 @@
 [
   {
-    "r": 8,
-    "alpha": 64,
-    "dropout": 0.0,
-    "val_bleu": 0.57162959831834,
-    "val_chrf": 75.45982542865488,
-    "val_loss": 0.7395509481430054
-  },
-  {
-    "r": 16,
-    "alpha": 64,
-    "dropout": 0.0,
-    "val_bleu": 0.5688835361428256,
-    "val_chrf": 75.27822574088955,
-    "val_loss": 0.7397775650024414
-  },
-  {
-    "r": 32,
-    "alpha": 64,
-    "dropout": 0.0,
-    "val_bleu": 0.5681970235316124,
-    "val_chrf": 75.3428564796117,
-    "val_loss": 0.7395603060722351
-  },
-  {
-    "r": 32,
-    "alpha": 64,
-    "dropout": 0.1,
-    "val_bleu": 0.5666250985813982,
-    "val_chrf": 75.28504221123428,
-    "val_loss": 0.7427941560745239
-  },
-  {
-    "r": 32,
-    "alpha": 64,
-    "dropout": 0.2,
-    "val_bleu": 0.566188553521667,
-    "val_chrf": 75.14897690634625,
-    "val_loss": 0.7445403337478638
-  },
-  {
-    "r": 8,
-    "alpha": 64,
-    "dropout": 0.2,
-    "val_bleu": 0.5655633270334673,
-    "val_chrf": 75.23863589838173,
-    "val_loss": 0.7411974668502808
-  },
-  {
-    "r": 8,
-    "alpha": 64,
-    "dropout": 0.1,
-    "val_bleu": 0.5653205989305513,
-    "val_chrf": 75.22291286377872,
-    "val_loss": 0.7391827702522278
-  },
-  {
-    "r": 16,
-    "alpha": 64,
-    "dropout": 0.1,
-    "val_bleu": 0.5648903577031993,
-    "val_chrf": 75.24020239383029,
-    "val_loss": 0.7416251301765442
-  },
-  {
-    "r": 16,
-    "alpha": 64,
-    "dropout": 0.2,
-    "val_bleu": 0.56449011070279,
-    "val_chrf": 75.2157825477398,
-    "val_loss": 0.7442981600761414
-  },
-  {
-    "r": 16,
-    "alpha": 32,
-    "dropout": 0.0,
-    "val_bleu": 0.5613288153189565,
-    "val_chrf": 74.69706255141233,
-    "val_loss": 0.7733747363090515
-  },
-  {
-    "r": 32,
-    "alpha": 32,
-    "dropout": 0.1,
-    "val_bleu": 0.5602339102322297,
-    "val_chrf": 74.66990293926504,
-    "val_loss": 0.7758806347846985
-  },
-  {
-    "r": 32,
-    "alpha": 32,
-    "dropout": 0.0,
-    "val_bleu": 0.5598747531739102,
-    "val_chrf": 74.62104005083512,
-    "val_loss": 0.7728421688079834
-  },
-  {
-    "r": 8,
-    "alpha": 32,
-    "dropout": 0.0,
-    "val_bleu": 0.5593514504598038,
-    "val_chrf": 74.56798113341549,
-    "val_loss": 0.7757997512817383
-  },
-  {
-    "r": 16,
-    "alpha": 32,
-    "dropout": 0.1,
-    "val_bleu": 0.5586712318509782,
-    "val_chrf": 74.60415961566889,
-    "val_loss": 0.7778496742248535
-  },
-  {
-    "r": 8,
-    "alpha": 32,
-    "dropout": 0.1,
-    "val_bleu": 0.5578446511119938,
-    "val_chrf": 74.47230048140516,
-    "val_loss": 0.7778324484825134
-  },
-  {
-    "r": 32,
-    "alpha": 32,
-    "dropout": 0.2,
-    "val_bleu": 0.5569368086373058,
-    "val_chrf": 74.55217391196193,
-    "val_loss": 0.7779006361961365
-  },
-  {
-    "r": 16,
-    "alpha": 32,
-    "dropout": 0.2,
-    "val_bleu": 0.5558050824204647,
-    "val_chrf": 74.57532714438993,
-    "val_loss": 0.7797964215278625
-  },
-  {
-    "r": 8,
-    "alpha": 32,
-    "dropout": 0.2,
-    "val_bleu": 0.5550683669532603,
-    "val_chrf": 74.37029220910591,
-    "val_loss": 0.7793902158737183
-  },
-  {
-    "r": 32,
-    "alpha": 16,
-    "dropout": 0.0,
-    "val_bleu": 0.5489890514290716,
-    "val_chrf": 74.05287672067772,
-    "val_loss": 0.8088528513908386
-  },
-  {
-    "r": 8,
-    "alpha": 16,
-    "dropout": 0.0,
-    "val_bleu": 0.5488846970349018,
-    "val_chrf": 74.01037882330671,
-    "val_loss": 0.8110350370407104
-  },
-  {
     "r": 16,
     "alpha": 16,
     "dropout": 0.0,
-    "val_bleu": 0.5485699192065262,
-    "val_chrf": 74.01172283058607,
-    "val_loss": 0.8088314533233643
-  },
-  {
-    "r": 16,
-    "alpha": 16,
-    "dropout": 0.2,
-    "val_bleu": 0.5477886553733311,
-    "val_chrf": 74.0694315574828,
-    "val_loss": 0.8137920498847961
-  },
-  {
-    "r": 8,
-    "alpha": 16,
-    "dropout": 0.1,
-    "val_bleu": 0.5475770668001589,
-    "val_chrf": 73.9536680352576,
-    "val_loss": 0.8125868439674377
-  },
-  {
-    "r": 8,
-    "alpha": 16,
-    "dropout": 0.2,
-    "val_bleu": 0.5475361027536183,
-    "val_chrf": 73.96643889859943,
-    "val_loss": 0.8139913082122803
-  },
-  {
-    "r": 32,
-    "alpha": 16,
-    "dropout": 0.2,
-    "val_bleu": 0.5472133378165579,
-    "val_chrf": 74.04713624715275,
-    "val_loss": 0.8121191263198853
-  },
-  {
-    "r": 32,
-    "alpha": 16,
-    "dropout": 0.1,
-    "val_bleu": 0.5469475394618828,
-    "val_chrf": 74.03202601657873,
-    "val_loss": 0.811164140701294
+    "val_bleu": 0.6014497599980582,
+    "val_chrf": 77.49673976179815,
+    "val_loss": 0.6931993365287781,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r16_a16_d0.0\\training\\final_model",
+    "training_time_seconds": 2811.7895658016205
   },
   {
     "r": 16,
     "alpha": 16,
     "dropout": 0.1,
-    "val_bleu": 0.5468280026492531,
-    "val_chrf": 73.95711496143974,
-    "val_loss": 0.8116455078125
+    "val_bleu": 0.5989062047219857,
+    "val_chrf": 77.40749565375062,
+    "val_loss": 0.6950937509536743,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r16_a16_d0.1\\training\\final_model",
+    "training_time_seconds": 2880.596236228943
+  },
+  {
+    "r": 16,
+    "alpha": 16,
+    "dropout": 0.2,
+    "val_bleu": 0.6002779628161709,
+    "val_chrf": 77.40152593646786,
+    "val_loss": 0.6962343454360962,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r16_a16_d0.2\\training\\final_model",
+    "training_time_seconds": 2906.782551050186
+  },
+  {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.0,
+    "val_bleu": 0.6066629761207024,
+    "val_chrf": 78.0264468788663,
+    "val_loss": 0.6674357056617737,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r16_a32_d0.0\\training\\final_model",
+    "training_time_seconds": 2720.910280942917
+  },
+  {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.1,
+    "val_bleu": 0.6061952383974057,
+    "val_chrf": 77.81516308623104,
+    "val_loss": 0.6689049005508423,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r16_a32_d0.1\\training\\final_model",
+    "training_time_seconds": 2753.537768602371
+  },
+  {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.2,
+    "val_bleu": 0.606093560759167,
+    "val_chrf": 77.84177351986001,
+    "val_loss": 0.6705726981163025,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r16_a32_d0.2\\training\\final_model",
+    "training_time_seconds": 2898.304256439209
+  },
+  {
+    "r": 16,
+    "alpha": 64,
+    "dropout": 0.0,
+    "val_bleu": 0.6181173352089532,
+    "val_chrf": 78.5744664302876,
+    "val_loss": 0.6448528170585632,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r16_a64_d0.0\\training\\final_model",
+    "training_time_seconds": 2749.6027421951294
+  },
+  {
+    "r": 16,
+    "alpha": 64,
+    "dropout": 0.1,
+    "val_bleu": 0.6159913985542868,
+    "val_chrf": 78.44070580248622,
+    "val_loss": 0.6463387608528137,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r16_a64_d0.1\\training\\final_model",
+    "training_time_seconds": 2852.7471067905426
+  },
+  {
+    "r": 16,
+    "alpha": 64,
+    "dropout": 0.2,
+    "val_bleu": 0.6144961870628358,
+    "val_chrf": 78.35446539912351,
+    "val_loss": 0.6482630968093872,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r16_a64_d0.2\\training\\final_model",
+    "training_time_seconds": 2855.5887620449066
+  },
+  {
+    "r": 32,
+    "alpha": 16,
+    "dropout": 0.0,
+    "val_bleu": 0.6027768430874917,
+    "val_chrf": 77.47541296965781,
+    "val_loss": 0.6920666694641113,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r32_a16_d0.0\\training\\final_model",
+    "training_time_seconds": 2792.2643761634827
+  },
+  {
+    "r": 32,
+    "alpha": 16,
+    "dropout": 0.1,
+    "val_bleu": 0.597794160696497,
+    "val_chrf": 77.36375000200395,
+    "val_loss": 0.6937964558601379,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r32_a16_d0.1\\training\\final_model",
+    "training_time_seconds": 2921.1375970840454
+  },
+  {
+    "r": 32,
+    "alpha": 16,
+    "dropout": 0.2,
+    "val_bleu": 0.5973769314201625,
+    "val_chrf": 77.32241047482505,
+    "val_loss": 0.6973283290863037,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r32_a16_d0.2\\training\\final_model",
+    "training_time_seconds": 2879.8688962459564
+  },
+  {
+    "r": 32,
+    "alpha": 32,
+    "dropout": 0.0,
+    "val_bleu": 0.6106430933689843,
+    "val_chrf": 78.0569036536039,
+    "val_loss": 0.6647375226020813,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r32_a32_d0.0\\training\\final_model",
+    "training_time_seconds": 2735.2869758605957
+  },
+  {
+    "r": 32,
+    "alpha": 32,
+    "dropout": 0.1,
+    "val_bleu": 0.6068197502383168,
+    "val_chrf": 77.87052513946857,
+    "val_loss": 0.6741401553153992,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r32_a32_d0.1\\training\\final_model",
+    "training_time_seconds": 2910.981353998184
+  },
+  {
+    "r": 32,
+    "alpha": 32,
+    "dropout": 0.2,
+    "val_bleu": 0.6055272086927401,
+    "val_chrf": 77.82451705740324,
+    "val_loss": 0.6700791716575623,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r32_a32_d0.2\\training\\final_model",
+    "training_time_seconds": 2776.4661667346954
+  },
+  {
+    "r": 32,
+    "alpha": 64,
+    "dropout": 0.0,
+    "val_bleu": 0.6177267046697834,
+    "val_chrf": 78.58930175055136,
+    "val_loss": 0.6426464319229126,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r32_a64_d0.0\\training\\final_model",
+    "training_time_seconds": 2636.512280702591
+  },
+  {
+    "r": 32,
+    "alpha": 64,
+    "dropout": 0.1,
+    "val_bleu": 0.6157353303850704,
+    "val_chrf": 78.3846915108619,
+    "val_loss": 0.6431066989898682,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r32_a64_d0.1\\training\\final_model",
+    "training_time_seconds": 2867.587212085724
+  },
+  {
+    "r": 32,
+    "alpha": 64,
+    "dropout": 0.2,
+    "val_bleu": 0.6129366750748766,
+    "val_chrf": 78.27986604174212,
+    "val_loss": 0.6474645733833313,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r32_a64_d0.2\\training\\final_model",
+    "training_time_seconds": 2860.757913827896
+  },
+  {
+    "r": 8,
+    "alpha": 16,
+    "dropout": 0.0,
+    "val_bleu": 0.6033924437494751,
+    "val_chrf": 77.50298221259726,
+    "val_loss": 0.6919769644737244,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r8_a16_d0.0\\training\\final_model",
+    "training_time_seconds": 2785.3532168865204
+  },
+  {
+    "r": 8,
+    "alpha": 16,
+    "dropout": 0.1,
+    "val_bleu": 0.5969011313277721,
+    "val_chrf": 77.33019138942967,
+    "val_loss": 0.6968345046043396,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r8_a16_d0.1\\training\\final_model",
+    "training_time_seconds": 2881.9933557510376
+  },
+  {
+    "r": 8,
+    "alpha": 16,
+    "dropout": 0.2,
+    "val_bleu": 0.5979190352383706,
+    "val_chrf": 77.27707281449185,
+    "val_loss": 0.6975807547569275,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r8_a16_d0.2\\training\\final_model",
+    "training_time_seconds": 2845.9413409233093
+  },
+  {
+    "r": 8,
+    "alpha": 32,
+    "dropout": 0.0,
+    "val_bleu": 0.606473233164609,
+    "val_chrf": 77.86463205216803,
+    "val_loss": 0.6697582602500916,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r8_a32_d0.0\\training\\final_model",
+    "training_time_seconds": 2811.9353449344635
+  },
+  {
+    "r": 8,
+    "alpha": 32,
+    "dropout": 0.1,
+    "val_bleu": 0.6048108379017448,
+    "val_chrf": 77.79125393578529,
+    "val_loss": 0.6701188683509827,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r8_a32_d0.1\\training\\final_model",
+    "training_time_seconds": 2846.388777732849
+  },
+  {
+    "r": 8,
+    "alpha": 32,
+    "dropout": 0.2,
+    "val_bleu": 0.6086395207873485,
+    "val_chrf": 77.96200718505811,
+    "val_loss": 0.6726083755493164,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r8_a32_d0.2\\training\\final_model",
+    "training_time_seconds": 2851.742566347122
+  },
+  {
+    "r": 8,
+    "alpha": 64,
+    "dropout": 0.0,
+    "val_bleu": 0.616922150310714,
+    "val_chrf": 78.54564681853088,
+    "val_loss": 0.6464316248893738,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r8_a64_d0.0\\training\\final_model",
+    "training_time_seconds": 2786.3752937316895
+  },
+  {
+    "r": 8,
+    "alpha": 64,
+    "dropout": 0.1,
+    "val_bleu": 0.61478375189137,
+    "val_chrf": 78.42934494828864,
+    "val_loss": 0.6486594080924988,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r8_a64_d0.1\\training\\final_model",
+    "training_time_seconds": 2853.625034570694
+  },
+  {
+    "r": 8,
+    "alpha": 64,
+    "dropout": 0.2,
+    "val_bleu": 0.6123055457382574,
+    "val_chrf": 78.17739443456195,
+    "val_loss": 0.6557490825653076,
+    "model_path": "D:\\J\\Desktop\\language_technology\\course\\projects_AI\\mt_oil_no\\outputs\\exp2_gridsearch\\r8_a64_d0.2\\training\\final_model",
+    "training_time_seconds": 2860.1725747585297
   }
 ]
