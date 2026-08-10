@@ -1,0 +1,9 @@
+{
+  "config_id": 1,
+  "r": 16,
+  "alpha": 64,
+  "dropout": 0.0,
+  "val_bleu_mean": 0.6169,
+  "val_bleu_std": 0.0013,
+  "model_path": "/gorilla/proj/uppmax2026-1-123/uppmax2026-1-123/private/yaxj1/mt_oil_no/outputs/exp3_optuna_stage2/config_1_run_1/training/final_model"
+}

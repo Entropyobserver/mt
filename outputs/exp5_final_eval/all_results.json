@@ -1,0 +1,59 @@
+[
+  {
+    "seed": 42,
+    "configuration": {
+      "r": 16,
+      "alpha": 64,
+      "dropout": 0.0
+    },
+    "val_bleu": 0.6368073661983589,
+    "val_chrf": 79.70635861135491,
+    "val_loss": 0.5954144597053528,
+    "test_bleu": 0.6318444625756843,
+    "test_chrf": 79.96465372390219,
+    "test_comet": 0.931875177078488,
+    "dataset_sizes": {
+      "train": 13935,
+      "val": 1737,
+      "test": 1742
+    }
+  },
+  {
+    "seed": 123,
+    "configuration": {
+      "r": 16,
+      "alpha": 64,
+      "dropout": 0.0
+    },
+    "val_bleu": 0.633659000137608,
+    "val_chrf": 79.40489506224422,
+    "val_loss": 0.5999739170074463,
+    "test_bleu": 0.6280740167379658,
+    "test_chrf": 79.91088768040714,
+    "test_comet": 0.9309845135625276,
+    "dataset_sizes": {
+      "train": 13935,
+      "val": 1737,
+      "test": 1742
+    }
+  },
+  {
+    "seed": 456,
+    "configuration": {
+      "r": 16,
+      "alpha": 64,
+      "dropout": 0.0
+    },
+    "val_bleu": 0.6320639479299724,
+    "val_chrf": 79.45649781558389,
+    "val_loss": 0.5979166626930237,
+    "test_bleu": 0.6319359742117899,
+    "test_chrf": 79.86552637716433,
+    "test_comet": 0.9319538571256994,
+    "dataset_sizes": {
+      "train": 13935,
+      "val": 1737,
+      "test": 1742
+    }
+  }
+]

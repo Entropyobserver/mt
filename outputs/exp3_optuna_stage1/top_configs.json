@@ -1,20 +1,37 @@
 [
   {
-    "rank": 1,
-    "r": 32,
+    "trial": 44,
+    "r": 16,
     "alpha": 64,
     "dropout": 0.0,
-    "bleu": 0.5507098094462272,
-    "training_time_hours": 0.7572706571552489,
-    "trainable_params_millions": 9.437184
+    "bleu": 0.5145233661304178
   },
   {
-    "rank": 2,
-    "r": 8,
+    "trial": 40,
+    "r": 16,
     "alpha": 64,
     "dropout": 0.0,
-    "bleu": 0.554189561643269,
-    "training_time_hours": 0.7594656748241848,
-    "trainable_params_millions": 2.359296
+    "bleu": 0.5145200793905691
+  },
+  {
+    "trial": 43,
+    "r": 16,
+    "alpha": 64,
+    "dropout": 0.0,
+    "bleu": 0.513552055589721
+  },
+  {
+    "trial": 48,
+    "r": 16,
+    "alpha": 64,
+    "dropout": 0.0,
+    "bleu": 0.513552055589721
+  },
+  {
+    "trial": 46,
+    "r": 16,
+    "alpha": 64,
+    "dropout": 0.0,
+    "bleu": 0.5130312267424397
   }
 ]

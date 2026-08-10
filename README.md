@@ -9,8 +9,8 @@ The project uses Norwegian Petroleum Directorate (NPD) parallel data and
 focuses on low-resource domain adaptation, data scaling, LoRA hyperparameter
 sensitivity, and LoRA-vs-full-fine-tuning trade-offs.
 
-Rerun notes and compact result summaries are documented in
-[`docs/experiment_rerun_notes.md`](docs/experiment_rerun_notes.md).
+Result folder layout, historical records, and current-script summaries are
+documented in [`outputs/README.md`](outputs/README.md).
 
 ## Repository Layout
 
@@ -39,7 +39,7 @@ mt_oil_no/
 |   `-- model/                          # BaseTrainer, LoRATrainer, FullTrainer
 |-- analysis/                           # analysis utilities
 |-- test/                               # walkthrough notebooks
-`-- outputs/                            # generated locally; not tracked
+`-- outputs/                            # generated locally; selected summaries tracked
 ```
 
 ## Data
@@ -253,9 +253,10 @@ Experiment outputs are written under:
 outputs/
 ```
 
-This directory is ignored by Git because it may contain large checkpoints and
-generated result files. Keep important summary tables separately if they need
-to be archived.
+This directory is ignored by default because it may contain large checkpoints,
+logs, predictions, and model artifacts. Selected lightweight summaries and
+figures are archived under `outputs/` to document the current-script result
+checks against historical records.
 
 ## Citation
 
